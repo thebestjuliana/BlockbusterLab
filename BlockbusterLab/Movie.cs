@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace BlockbusterLab
 {
@@ -12,7 +13,7 @@ namespace BlockbusterLab
         Romance,
         Action,
     }
-    class Movie
+    abstract class Movie
     {
         public string Title { get; set; }
         public Genre Category { get; set; }
@@ -34,14 +35,22 @@ namespace BlockbusterLab
             int i = 0;
             foreach (string scene in Scenes)
             {
-                Console.WriteLine( $"{i}) {scene} \n");
+                Console.WriteLine( $"{i}) {scene}");
                 i++;
             }
         }
 
-        public virtual void Play()
-        {
+        public abstract void Play();
 
+        public virtual void PlayWholeMovie()
+        {
+            for (int i = 0; i < Scenes.Count; i++)
+            {
+                Thread.Sleep(2000);
+                Console.WriteLine(Scenes[i]);
+
+            }
+            Console.WriteLine();
         }
     }
 }

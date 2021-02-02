@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace BlockbusterLab
 {
     class DVD : Movie
     {
-        public DVD(string Title, Genre Category, int RunTime, List<string> Scenes):base(Title, Category, RunTime, Scenes)
+        public DVD(string Title, Genre Category, int RunTime, List<string> Scenes) : base(Title, Category, RunTime, Scenes)
         {
 
         }
@@ -14,16 +15,18 @@ namespace BlockbusterLab
         {
             while (true)
             {
-                Console.WriteLine("Which scene would you like to watch?");
+                Console.WriteLine($"Which scene of the DVD {Title} would you like to watch?");
                 PrintScenes();
                 int index;
                 bool play = int.TryParse(Console.ReadLine(), out index);
+                Console.WriteLine();
                 if (play)
                 {
-                    for (int i = index; i < Scenes.Count; i++)
-                    {
-                        Console.WriteLine(Scenes[index]);
-                    }
+                    Thread.Sleep(500);
+
+                    Console.WriteLine(Scenes[index]);
+                    Console.WriteLine();
+                    break;
                 }
                 else
                 {
@@ -31,6 +34,10 @@ namespace BlockbusterLab
                     continue;
                 }
             }
+        }
+        public override void PlayWholeMovie()
+        {
+            base.PlayWholeMovie();
         }
     }
 }
